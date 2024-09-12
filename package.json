@@ -1,18 +1,25 @@
 {
-  "name": "quick-desk-components",
+  "name": "@nexle-soft/quick-desk-components",
+  "description": "Quick Desk's components",
   "author": "Nexle Soft",
+  "license": "Apache-2.0",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
+  "main": "./dist/main.js",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/lib/main.d.ts",
+      "types": "./dist/main.d.ts",
       "default": "./dist/main.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "homepage": "https://www.nexlesoft.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/nexlesoft/quick-desk-components"
@@ -20,13 +27,23 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "keywords": [
+    "quick",
+    "desk",
+    "components"
+  ],
+  "contributors": [
+    {
+      "name": "Nhan Doan"
+    }
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b ./tsconfig.lib.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
