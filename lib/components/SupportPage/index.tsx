@@ -5,21 +5,49 @@ import {
   TicketType,
 } from "@nexle-soft/quick-desk-client";
 import { Button, Form, Input, Select, Table } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useTicketState } from "./useTicketState";
 
 import "./styles/index.scss";
+
+export interface InputComponentProps {
+  prefix?: React.ReactNode;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export interface SelectProps {
+  options: TicketStatus[];
+  value: string | number;
+  onChange: (value: string | number) => void;
+  style?: React.CSSProperties;
+}
+
+export interface TableProps {
+  dataSource: Ticket[];
+  columns: any[];
+  pagination: any;
+  onRow: (record: Ticket) => {
+    onClick: () => void;
+  };
+}
 
 export interface SupportProps {
   onClickCreateSupport: () => void;
   onClickToDetail: (id: string | number) => void;
   merchantEmail?: string;
+  InputComponent?: FC<InputComponentProps | any>;
+  SelectComponent?: FC<SelectProps | any>;
+  TableComponent?: FC<TableProps | any>;
 }
 
 const Support = ({
   onClickCreateSupport,
   onClickToDetail,
   merchantEmail,
+  InputComponent = Input,
+  SelectComponent = Select,
+  TableComponent = Table,
 }: SupportProps) => {
   const [{ ticketApi, statusSettingApi }] = useTicketState();
 
@@ -179,7 +207,7 @@ const Support = ({
         </div>
         <div style={{ display: "flex", justifyContent: "end", gap: "1rem" }}>
           <Form.Item className="filter__search__input" name="search">
-            <Select
+            <SelectComponent
               style={{ minWidth: "200px" }}
               options={
                 statusSetting?.map((item: TicketStatus) => ({
@@ -188,14 +216,14 @@ const Support = ({
                 })) || []
               }
               value={statusSelect}
-              onChange={(value) => setStatusSelect(value)}
+              onChange={(value: TicketStatus) => setStatusSelect(value)}
             />
           </Form.Item>
           <Form.Item className="filter__search__input" name="search">
-            <Input
+            <InputComponent
               prefix={<SearchOutlined />}
               value={searchValue}
-              onChange={(value) => setSearchValue(String(value))}
+              onChange={(value: string) => setSearchValue(String(value))}
             />
           </Form.Item>
 
@@ -221,11 +249,11 @@ const Support = ({
       </div>
 
       <div>
-        <Table
+        <TableComponent
           dataSource={dataTicket || []}
           columns={columns}
           pagination={config.pagination}
-          onRow={(record) => {
+          onRow={(record: Ticket) => {
             return {
               onClick: () => handleClickTicketSupportDetail(record),
             };
@@ -235,4 +263,5 @@ const Support = ({
     </div>
   );
 };
+
 export default Support;
