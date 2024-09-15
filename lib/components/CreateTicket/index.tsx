@@ -1,5 +1,6 @@
 import {
   COMMON_STATE,
+  Media,
   TicketPriority,
   TicketType,
 } from "@nexle-soft/quick-desk-client";
@@ -35,7 +36,7 @@ export const CreateTicket = ({
     fileInputRef?.current?.click();
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
@@ -55,7 +56,7 @@ export const CreateTicket = ({
 
   const handleSend = () => {
     if (title) {
-      const createTicket = (media) => {
+      const createTicket = (media: any) => {
         ticketApi
           .createTicket({
             description,
@@ -79,11 +80,18 @@ export const CreateTicket = ({
           if (e.url) delete e.url;
         });
         mediaApi
-          .upload({ files: uploadFiles, context: "ADMINISTRATION.TICKET" })
+          .upload({
+            files: uploadFiles as File[],
+            context: "ADMINISTRATION.TICKET",
+          })
           .then((res) => {
             if (res.every((item) => item.status === "fulfilled")) {
               const media =
-                res.map((item) => item?.value?.data?.[0]?.id) || null;
+                res.map((item) => {
+                  const data = item?.value?.data as unknown as Media[];
+
+                  return data?.[0]?.id;
+                }) || null;
               createTicket(media);
             }
           });
