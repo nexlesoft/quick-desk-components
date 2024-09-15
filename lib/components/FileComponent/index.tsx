@@ -1,7 +1,7 @@
-import pdfIcon from "../images/icon-pdf.svg";
-import imageIcon from "../images/icon-image.svg";
-import xlsIcon from "../images/icon-xls.svg";
-import filePlaceholderIcon from "../images/icon-file-placeholder.svg";
+import pdfIcon from "../../assets/images/icon-pdf.svg";
+import imageIcon from "../../assets/images/icon-image.svg";
+import xlsIcon from "../../assets/images/icon-xls.svg";
+import filePlaceholderIcon from "../../assets/images/icon-file-placeholder.svg";
 
 export interface FileType {
   name: string;
@@ -15,7 +15,7 @@ export interface FileComponentProps {
   hiddenRemove: () => void;
 }
 
-const FileComponent = (props: FileComponentProps) => {
+export const FileComponent = (props: FileComponentProps) => {
   const { file, remove, hiddenRemove, ...rest } = props;
 
   const renderFileTypeIcon = (file: FileType) => {
@@ -50,5 +50,3 @@ const FileComponent = (props: FileComponentProps) => {
     </div>
   );
 };
-
-export default FileComponent;

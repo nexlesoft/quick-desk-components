@@ -5,10 +5,10 @@ import {
   TicketType,
 } from "@nexle-soft/quick-desk-client";
 import { Button, Form, Input, Select, Table } from "antd";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, ReactNode, useCallback, useEffect, useState } from "react";
 import { useTicketState } from "./useTicketState";
 
-import "./styles/index.scss";
+import "../../styles/index.scss";
 
 export interface InputComponentProps {
   prefix?: React.ReactNode;
@@ -39,22 +39,30 @@ export interface SupportProps {
   InputComponent?: FC<InputComponentProps | any>;
   SelectComponent?: FC<SelectProps | any>;
   TableComponent?: FC<TableProps | any>;
+  title?: ReactNode;
+  style?: React.CSSProperties;
+  searchText?: ReactNode;
+  wrapperProps?: any;
 }
 
-const Support = ({
+export const Support = ({
   onClickCreateSupport,
   onClickToDetail,
   merchantEmail,
   InputComponent = Input,
   SelectComponent = Select,
   TableComponent = Table,
+  title = "Support page",
+  style,
+  searchText = "Search",
+  wrapperProps,
 }: SupportProps) => {
   const [{ ticketApi, statusSettingApi }] = useTicketState();
 
   const [dataTicket, setDataTicket] = useState<Ticket[]>([]);
   const [totalRows, setTotalRows] = useState(0);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [statusSelect, setStatusSelect] = useState<TicketStatus | null>(null);
+  const [statusSelect, setStatusSelect] = useState<number | null>(null);
   const [statusSetting, setStatusSetting] = useState<TicketStatus[]>([]);
 
   const getListTicket = useCallback(
@@ -78,7 +86,7 @@ const Support = ({
   );
 
   const handleClickSearch = () => {
-    getListTicket(searchValue, statusSelect?.id);
+    getListTicket(searchValue, statusSelect || undefined);
   };
 
   const handleClickTicketSupportDetail = (row: Ticket) => {
@@ -175,7 +183,7 @@ const Support = ({
     return `${range.join("-")} of ${total}`;
   }
   const handleClickPageNumber = (page: number) => {
-    getListTicket(searchValue, statusSelect?.id, page);
+    getListTicket(searchValue, statusSelect || undefined, page);
   };
 
   const config = {
@@ -192,7 +200,6 @@ const Support = ({
   useEffect(() => {
     getListTicket(searchValue, undefined);
     statusSettingApi.getListStatuses({ limit: -1 }).then((res) => {
-      console.log(res, "status");
       if (res.success) {
         setStatusSetting(res?.data?.items);
       }
@@ -200,23 +207,21 @@ const Support = ({
   }, [getListTicket, searchValue, statusSettingApi]);
 
   return (
-    <div className="filter filter__search">
+    <div className="filter filter__search" style={style} {...wrapperProps}>
       <div className="support-header">
-        <div className="support-header-left">
-          <h3>BeaHub Support</h3>
-        </div>
+        <div className="support-header-left">{title}</div>
         <div style={{ display: "flex", justifyContent: "end", gap: "1rem" }}>
           <Form.Item className="filter__search__input" name="search">
             <SelectComponent
               style={{ minWidth: "200px" }}
               options={
                 statusSetting?.map((item: TicketStatus) => ({
-                  id: item?.id,
-                  name: item?.name,
+                  value: item?.id,
+                  label: item?.name,
                 })) || []
               }
               value={statusSelect}
-              onChange={(value: TicketStatus) => setStatusSelect(value)}
+              onChange={(value: number) => setStatusSelect(value)}
             />
           </Form.Item>
           <Form.Item className="filter__search__input" name="search">
@@ -231,9 +236,9 @@ const Support = ({
             className="filter__search__submit"
             size="large"
             type="primary"
-            onClick={() => handleClickSearch()}
+            onClick={handleClickSearch}
           >
-            Search
+            {searchText}
           </Button>
 
           <Button
@@ -263,5 +268,3 @@ const Support = ({
     </div>
   );
 };
-
-export default Support;
