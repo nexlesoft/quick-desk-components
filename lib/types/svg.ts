@@ -1,3 +1,3 @@
 export interface SVGProps {
-  size: number;
+  size: number | string;
 }

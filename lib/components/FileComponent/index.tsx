@@ -11,8 +11,8 @@ export interface FileType {
 
 export interface FileComponentProps {
   file: FileType;
-  remove: () => void;
-  hiddenRemove: () => void;
+  remove?: () => void;
+  hiddenRemove?: boolean;
 }
 
 export const FileComponent = (props: FileComponentProps) => {
