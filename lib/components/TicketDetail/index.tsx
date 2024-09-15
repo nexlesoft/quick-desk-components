@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-
-import { FileComponent } from "../FileComponent";
-import { AttachIcon } from "../../assets/icons/iconAttach";
-import { BackIcon } from "../../assets/icons/iconBack";
-import { SendIcon } from "../../assets/icons/iconSend";
-
-import "./styles/index.scss";
 import {
   ActivityLogApi,
   Media,
   MediaApi,
   TicketApi,
 } from "@nexle-soft/quick-desk-client";
+
+import { FileComponent } from "../FileComponent";
+import { AttachIcon } from "../../assets/icons/iconAttach";
+import { BackIcon } from "../../assets/icons/iconBack";
+import { SendIcon } from "../../assets/icons/iconSend";
+
+import "../../styles/index.scss";
 
 export interface TicketDetailProps {
   onGoBack: () => void;

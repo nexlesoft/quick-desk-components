@@ -5,9 +5,11 @@ import {
   ActivityLogApi,
   Configuration,
   MediaApi,
+  Ticket,
   TicketApi,
   TicketSettingStatusApi,
 } from "@nexle-soft/quick-desk-client";
+import { TicketDetail } from "../lib/components/TicketDetail";
 
 Configuration.getInstance({
   host: "https://be.quickdesk.demo.nexlesoft.com/api/v1",
@@ -31,6 +33,10 @@ function App() {
     navigate("/create-ticket");
   };
 
+  const handleTicketDetail = (id: number | string) => {
+    navigate(`/ticket-detail/${id}`);
+  };
+
   return (
     <Routes>
       <Route
@@ -42,7 +48,7 @@ function App() {
             <div className="card">
               <Support
                 onClickCreateSupport={handleCreateTicket}
-                onClickToDetail={() => console.log("Click to detail")}
+                onClickToDetail={handleTicketDetail}
                 ticketApi={ticketApi}
                 statusSettingApi={statusSettingApi}
               />
@@ -50,6 +56,7 @@ function App() {
           </>
         }
       />
+
       <Route
         path="/create-ticket"
         element={
@@ -57,6 +64,22 @@ function App() {
             onGoBack={handleGoBack}
             ticketApi={ticketApi}
             mediaApi={mediaApi}
+          />
+        }
+      />
+
+      <Route
+        path="/ticket-detail/:id"
+        element={
+          <TicketDetail
+            onGoBack={handleGoBack}
+            ticketApi={ticketApi}
+            mediaApi={mediaApi}
+            activityLog={activityLog}
+            userInfo={{
+              avatar: "avatarLink",
+              merchantEmail: "merchantEmail@yopmail.com",
+            }}
           />
         }
       />
