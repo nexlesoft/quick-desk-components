@@ -1,6 +1,8 @@
 import {
   COMMON_STATE,
   Media,
+  MediaApi,
+  TicketApi,
   TicketPriority,
   TicketType,
 } from "@nexle-soft/quick-desk-client";
@@ -10,27 +12,27 @@ import { useRef, useState } from "react";
 import { BackIcon } from "../../assets/icons/iconBack";
 import { PlusIcon } from "../../assets/icons/iconPlus";
 import { FileComponent, FileType } from "../FileComponent";
-import { useTicketState } from "../SupportPage/useTicketState";
 
 import "../../styles/index.scss";
 
 export interface CreateTicketProps {
   onGoBack: () => void;
-  onClickToDetail: (id: string | number) => void;
   merchantEmail?: string;
+  ticketApi: TicketApi;
+  mediaApi: MediaApi;
 }
 
 export const CreateTicket = ({
   merchantEmail,
   onGoBack,
+  ticketApi,
+  mediaApi,
 }: CreateTicketProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadFiles, setUploadFiles] = useState<Array<FileType>>([]);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [invalidTitle, setInvalidTitle] = useState<boolean>(false);
-
-  const [{ ticketApi, mediaApi }] = useTicketState();
 
   const handleClick = () => {
     fileInputRef?.current?.click();

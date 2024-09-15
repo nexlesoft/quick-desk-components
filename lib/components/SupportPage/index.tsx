@@ -1,12 +1,13 @@
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import {
   Ticket,
+  TicketApi,
+  TicketSettingStatusApi,
   TicketStatus,
   TicketType,
 } from "@nexle-soft/quick-desk-client";
 import { Button, Form, Input, Select, Table } from "antd";
 import { FC, ReactNode, useCallback, useEffect, useState } from "react";
-import { useTicketState } from "./useTicketState";
 
 import "../../styles/index.scss";
 
@@ -43,7 +44,95 @@ export interface SupportProps {
   style?: React.CSSProperties;
   searchText?: ReactNode;
   wrapperProps?: any;
+  ticketApi: TicketApi;
+  statusSettingApi: TicketSettingStatusApi;
+  columns?: any[];
 }
+
+const internalColumns = [
+  {
+    title: "Code",
+    dataIndex: "code",
+    key: "total",
+    width: "15%",
+    onCell: () => {
+      return {
+        style: {
+          minWidth: 100,
+        },
+      };
+    },
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "total",
+    width: "15%",
+    onCell: () => {
+      return {
+        style: {
+          minWidth: 100,
+        },
+      };
+    },
+  },
+  {
+    title: "Created date",
+    dataIndex: "created_date",
+    key: "total",
+    width: "15%",
+    onCell: () => {
+      return {
+        style: {
+          minWidth: 100,
+        },
+      };
+    },
+  },
+  {
+    title: "Modified date",
+    dataIndex: "modified_date",
+    key: "total",
+    width: "15%",
+    onCell: () => {
+      return {
+        style: {
+          minWidth: 100,
+        },
+      };
+    },
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "total",
+    width: "15%",
+    render: (row: { name: string }) => (
+      <span className={`status-bg-${row?.name}`}>{row?.name}</span>
+    ),
+    onCell: () => {
+      return {
+        style: {
+          minWidth: 100,
+        },
+      };
+    },
+  },
+  {
+    title: "Action",
+    dataIndex: "total",
+    key: "total",
+    width: "15%",
+    render: () => <span>{"View"}</span>,
+    onCell: () => {
+      return {
+        style: {
+          minWidth: 100,
+        },
+      };
+    },
+  },
+];
 
 export const Support = ({
   onClickCreateSupport,
@@ -52,13 +141,14 @@ export const Support = ({
   InputComponent = Input,
   SelectComponent = Select,
   TableComponent = Table,
+  columns = internalColumns,
   title = "Support page",
   style,
   searchText = "Search",
   wrapperProps,
+  ticketApi,
+  statusSettingApi,
 }: SupportProps) => {
-  const [{ ticketApi, statusSettingApi }] = useTicketState();
-
   const [dataTicket, setDataTicket] = useState<Ticket[]>([]);
   const [totalRows, setTotalRows] = useState(0);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -94,90 +184,6 @@ export const Support = ({
 
     onClickToDetail(id);
   };
-  const columns = [
-    {
-      title: "Code",
-      dataIndex: "code",
-      key: "total",
-      width: "15%",
-      onCell: () => {
-        return {
-          style: {
-            minWidth: 100,
-          },
-        };
-      },
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "total",
-      width: "15%",
-      onCell: () => {
-        return {
-          style: {
-            minWidth: 100,
-          },
-        };
-      },
-    },
-    {
-      title: "Created date",
-      dataIndex: "created_date",
-      key: "total",
-      width: "15%",
-      onCell: () => {
-        return {
-          style: {
-            minWidth: 100,
-          },
-        };
-      },
-    },
-    {
-      title: "Modified date",
-      dataIndex: "modified_date",
-      key: "total",
-      width: "15%",
-      onCell: () => {
-        return {
-          style: {
-            minWidth: 100,
-          },
-        };
-      },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "total",
-      width: "15%",
-      render: (row: { name: string }) => (
-        <span className={`status-bg-${row?.name}`}>{row?.name}</span>
-      ),
-      onCell: () => {
-        return {
-          style: {
-            minWidth: 100,
-          },
-        };
-      },
-    },
-    {
-      title: "Action",
-      dataIndex: "total",
-      key: "total",
-      width: "15%",
-      render: () => <span>{"View"}</span>,
-      onCell: () => {
-        return {
-          style: {
-            minWidth: 100,
-          },
-        };
-      },
-    },
-  ];
 
   function showTotal(total: number, range: [number, number]) {
     return `${range.join("-")} of ${total}`;
