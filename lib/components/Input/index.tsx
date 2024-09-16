@@ -1,4 +1,5 @@
-// lib/components/Input/index.tsx
+import React from "react";
+
 export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} />;
 }
