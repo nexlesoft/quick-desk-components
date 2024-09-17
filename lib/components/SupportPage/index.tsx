@@ -107,8 +107,8 @@ const internalColumns = [
     dataIndex: "status",
     key: "total",
     width: "15%",
-    render: (row: { name: string }) => (
-      <span className={`status-bg-${row?.name}`}>{row?.name}</span>
+    render: (row: { name: string; color: string }) => (
+      <span className={`badge bg-${row?.color}`}>{row?.name}</span>
     ),
     onCell: () => {
       return {
@@ -216,7 +216,14 @@ export const Support = ({
     <div className="filter filter__search" style={style} {...wrapperProps}>
       <div className="support-header">
         <div className="support-header-left">{title}</div>
-        <div style={{ display: "flex", justifyContent: "end", gap: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            gap: "1rem",
+            alignItems: "center",
+          }}
+        >
           <Form.Item className="filter__search__input" name="search">
             <SelectComponent
               style={{ minWidth: "200px" }}

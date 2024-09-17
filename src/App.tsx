@@ -50,6 +50,7 @@ function App() {
                 onClickToDetail={handleTicketDetail}
                 ticketApi={ticketApi}
                 statusSettingApi={statusSettingApi}
+                title={"Ticket Table"}
               />
             </div>
           </>
