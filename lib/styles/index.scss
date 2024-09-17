@@ -1,6 +1,6 @@
 $text-color-primary: black;
 $main-color: #7bb441;
-$border-color:  #e6e6e6;
+$border-color: #e6e6e6;
 $background-card: white;
 $secondary-color: #dc3b7f;
 
@@ -8,6 +8,7 @@ $status-bg-new: #eaffe0;
 $status-text-new: #65ac22;
 $status-bg-assign: #ffeeee;
 $status-text-assign: #707070;
+$link-color: #2f55d1;
 
 .support-header {
   display: flex;
@@ -16,14 +17,14 @@ $status-text-assign: #707070;
   padding: 1rem;
   &-left {
     display: flex;
-    gap: 0.3rem;
-    align-items: top;
+    gap: 0.5rem;
+    align-items: center;
     cursor: pointer;
     h3 {
       font-size: 19px;
       font-weight: 500;
-      color: $text-color-primary;
-      font-family: 'Mulish', sans-serif;
+      color: $link-color;
+      font-family: "Mulish", sans-serif;
       margin: 0;
     }
   }
@@ -42,28 +43,34 @@ $status-text-assign: #707070;
     display: flex;
     gap: 1rem;
     align-items: center;
+    box-sizing: border-box;
+
     p {
       width: 100px;
       font-size: 14px;
       font-weight: 400;
       color: $text-color-primary;
-      font-family: 'Mulish', sans-serif;
+      font-family: "Mulish", sans-serif;
       margin: 0;
     }
     .input-title {
-      width: 70%;
-    }
-    input {
       width: 100%;
-      border: 1px solid $border-color;
-      height: 44px;
-      border-radius: 20px;
-      padding: 0.3rem 1rem;
+      box-sizing: border-box;
+
+      input {
+        width: 100%;
+        border: 1px solid $border-color;
+        height: 44px;
+        border-radius: 20px;
+        padding: 0.3rem 1rem;
+        box-sizing: border-box;
+      }
+      input:focus {
+        border-color: $main-color;
+        outline: none;
+      }
     }
-    input:focus {
-      border-color: $main-color;
-      outline: none;
-    }
+
     textarea {
       width: 70%;
       border: 1px solid $border-color;
@@ -88,7 +95,6 @@ $status-text-assign: #707070;
       text-align: center;
       line-height: 1;
     }
-
   }
   .row-comment {
     padding: 1rem 2rem 0 2rem;
@@ -101,7 +107,6 @@ $status-text-assign: #707070;
         width: 50px;
         height: 50px;
         border-radius: 50%;
-
       }
     }
     .content-comment {
@@ -114,6 +119,7 @@ $status-text-assign: #707070;
       .content {
         display: inline-flex;
         gap: 5px;
+        align-items: center;
       }
       .view-detail {
         color: $main-color;
@@ -123,10 +129,10 @@ $status-text-assign: #707070;
         display: inline-flex;
         gap: 5px;
         .from {
-          color: $secondary-color
+          color: $secondary-color;
         }
         .to {
-          color: $main-color
+          color: $main-color;
         }
       }
     }
@@ -145,7 +151,6 @@ $status-text-assign: #707070;
         width: 50px;
         height: 50px;
         border-radius: 50%;
-
       }
     }
     .container-input {
@@ -214,12 +219,14 @@ $status-text-assign: #707070;
     align-items: center;
   }
   .item-file {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
     position: relative;
     max-width: 100px;
+    padding: 0.5rem;
     img {
       text-align: center;
       width: 100%;
-      max-width: 80px;
     }
     p {
       display: -webkit-box;
@@ -227,11 +234,13 @@ $status-text-assign: #707070;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: center;
+      margin: 0.5rem 0 0 0;
     }
     button {
       position: absolute;
-      top: -1px;
-      right: 15px;
+      top: 0;
+      right: 0;
       margin: 0;
       border: none;
       padding: 2px 5px;
@@ -253,19 +262,20 @@ $status-text-assign: #707070;
   .detail-ticket {
     display: grid;
     grid-template-columns: 8.5fr 1.5fr;
-     .input-title {
-        width: 100%;
+    .input-title {
+      width: 100%;
+    }
+    textarea {
+      width: 100%;
+    }
+    .container-file-uploaded {
+      padding: 0 1rem;
+      .list-files {
+        height: 165px;
+        overflow-y: scroll;
+        scrollbar-color: $border-color #7d030300;
       }
-      textarea {
-        width: 100%;
-      }
-      .container-file-uploaded {
-        .list-files {
-          height: 165px;
-          overflow-y: scroll;
-          scrollbar-color: $border-color #7d030300;
-        }
-      }
+    }
   }
   .detail-comment {
     scrollbar-color: $background-card #7d030300;

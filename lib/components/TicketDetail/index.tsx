@@ -11,6 +11,7 @@ import { FileComponent } from "../FileComponent";
 import { AttachIcon } from "../../assets/icons/iconAttach";
 import { BackIcon } from "../../assets/icons/iconBack";
 import { SendIcon } from "../../assets/icons/iconSend";
+import BlankAvatar from "../../assets/images/avatar-blank.png";
 
 import "../../styles/index.scss";
 
@@ -199,9 +200,12 @@ export const TicketDetail = ({
                       src={
                         item?.updated_data?.merchant?.avatar ||
                         item?.staff?.avatar ||
-                        ""
+                        BlankAvatar
                       }
                       alt={"Name"}
+                      onError={function (error) {
+                        error.target.src = BlankAvatar;
+                      }}
                     />
                   </div>
                   <div className="content-comment">
@@ -212,7 +216,7 @@ export const TicketDetail = ({
                             ? `${item?.updated_data?.merchant?.firstName} ${item?.updated_data?.merchant?.lastName}`
                             : "Admin Support"}
                         </span>{" "}
-                        update at {`${item?.modified_date?.slice(0, -7)}`}
+                        updated at {`${item?.modified_date?.slice(0, -7)}`}
                       </p>
                     </div>
                     <div className="content">
@@ -295,7 +299,7 @@ export const TicketDetail = ({
           <div className="container-avatar">
             <img
               className="avatar"
-              src={userInfo?.profile?.avatar || ""}
+              src={userInfo?.profile?.avatar || BlankAvatar}
               alt={[
                 userInfo?.profile?.firstName || "",
                 userInfo?.profile?.lastName || "",

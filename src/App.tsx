@@ -1,15 +1,14 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-import { CreateTicket, Support } from "../lib/main";
 import {
   ActivityLogApi,
   Configuration,
   MediaApi,
-  Ticket,
   TicketApi,
   TicketSettingStatusApi,
 } from "@nexle-soft/quick-desk-client";
 import { TicketDetail } from "../lib/components/TicketDetail";
+import { CreateTicket, Support } from "../lib/main";
 
 Configuration.getInstance({
   host: "https://be.quickdesk.demo.nexlesoft.com/api/v1",
@@ -43,7 +42,7 @@ function App() {
         path="/"
         element={
           <>
-            <div>Test library</div>
+            <div>Test library update</div>
 
             <div className="card">
               <Support

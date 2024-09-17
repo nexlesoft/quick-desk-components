@@ -14,7 +14,7 @@ export const BackIcon = ({ size }: SVGProps) => {
           id="Group-20"
           transform="translate(-33.000000, -13.000000)"
           fill="#4A4A4A"
-          fill-rule="nonzero"
+          fillRule="nonzero"
         >
           <g id="Group-10" transform="translate(21.000000, 0.000000)">
             <g id="Path-2" transform="translate(12.000000, 13.000000)">
