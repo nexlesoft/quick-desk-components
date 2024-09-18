@@ -120,7 +120,7 @@ export const CreateTicket = ({
       </div>
       <div className="support-form">
         <div className="row-input">
-          <p>Title</p>
+          <p className="row-input__label">Title</p>
           <div className="input-title">
             <input
               type="text"
@@ -136,14 +136,14 @@ export const CreateTicket = ({
           </div>
         </div>
         <div className="row-input">
-          <p>Description</p>
+          <p className="row-input__label">Description</p>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="row-input">
-          <p>Attach files</p>
+          <p className="row-input__label">Attach files</p>
           <div className="container-file-upload">
             {!!uploadFiles?.length &&
               uploadFiles?.map((item, index) => {
@@ -170,14 +170,11 @@ export const CreateTicket = ({
             </div>
           </div>
         </div>
-        <Button
-          className="me-1"
-          size="small"
-          type="primary"
-          onClick={() => handleSend()}
-        >
-          Send
-        </Button>
+        <div className="row-input">
+          <Button type="primary" style={{ margin: 0 }} onClick={handleSend}>
+            Send
+          </Button>
+        </div>
       </div>
     </div>
   );
